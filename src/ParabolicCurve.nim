@@ -151,11 +151,11 @@ proc mainLoop() =
             if newPos.x != mPos.x:
                 lines = @[]
                             
-                var x = 0
-                var y = 100
-                let numLines = 100
-                var posinc = g.p2c(newPoint(newPos.x, 0)).x.int
-                var inc = 0
+                var x = 0.0
+                var y = 100.0
+                let numLines = 100.0
+                var posinc = g.p2c(newPoint(newPos.x, 0)).x
+                var inc = 0.0
                 if posinc > 0 or posinc < 0:
                     inc = abs(posinc)
                 else:
@@ -163,16 +163,29 @@ proc mainLoop() =
 
                 while x <= numLines:
                     # Quadrant I
-                    lines.add(newLine((0.0, y.float), (x.float, 0.0)))
+                    lines.add(newLine((0.0, y), (x, 0.0)))
 
                     # Quadrant II
-                    lines.add(newLine((0.0, y.float), (-x.float, 0.0)))
+                    lines.add(newLine((0.0, y), (-x, 0.0)))
 
                     # Quadrant III
-                    lines.add(newLine((0.0, -y.float), (-x.float, 0.0)))
+                    lines.add(newLine((0.0, -y), (-x, 0.0)))
 
-                    # Quadrant IIII
-                    lines.add(newLine((0.0, -y.float), (x.float, 0.0)))
+                    # Quadrant IV
+                    lines.add(newLine((0.0, -y), (x, 0.0)))
+
+
+                    # Quadrant I
+                    lines.add(newLine((numLines, y), (x, numLines)))
+
+                    # Quadrant II
+                    lines.add(newLine((-numLines, y), (-x, numLines)))
+
+                    # Quadrant III
+                    lines.add(newLine((-numLines, -y), (-x, -numLines)))
+
+                    # Quadrant IV
+                    lines.add(newLine((numLines, -y), (x, -numLines)))
 
                     x += inc
                     y -= inc
